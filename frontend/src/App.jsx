@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getMaterials } from "./api";
 import MaterialForm from "./components/MaterialForm";
 import MaterialDetails from "./components/MaterialDetails";
+import Dashboard from "./components/Dashboard";
 import {
   ArrowRight,
   Recycle,
@@ -34,6 +35,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [apiError, setApiError] = useState("");
   const [selectedMaterial, setSelectedMaterial] = useState(null);
+  const [showDashboard, setShowDashboard] = useState(false);
 
   const loadListings = async () => {
     try {
@@ -119,7 +121,15 @@ function App() {
       .includes(query.toLowerCase())
   );
 
-  if (selectedMaterial) {
+  if (showDashboard) {
+  return (
+    <Dashboard
+      onBack={() => setShowDashboard(false)}
+    />
+  );
+}
+
+if (selectedMaterial) {
   return (
     <MaterialDetails
       material={selectedMaterial}
@@ -149,6 +159,12 @@ function App() {
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
+           <button
+  onClick={() => setShowDashboard(true)}
+  className="px-4 py-2 text-sm font-semibold hover:text-[#e66d3d]"
+>
+  Dashboard
+</button>
             <button className="px-4 py-2 text-sm font-semibold hover:text-[#e66d3d]">
               Log in
             </button>

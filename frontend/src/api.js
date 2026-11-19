@@ -28,4 +28,15 @@ export const createExchangeRequest = async (requestData) => {
   return response.data;
 };
 
+export const getDashboard = async (userId) => {
+  const response = await API.get(`/dashboard/${userId}`);
+  return response.data;
+};
+
+export const updateExchangeRequestStatus = async (requestId, status) => {
+  const response = await API.patch(`/requests/${requestId}/status`, {
+    status,
+  });
+  return response.data;
+};
 export default API;
